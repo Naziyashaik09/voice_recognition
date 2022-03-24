@@ -1,0 +1,8 @@
+numba==0.48.0
+librosa==0.6.0
+numpy==1.19.2
+visualdl==2.1.1
+torchsummary~=1.5.1
+gradio>=2.4.6
+torch==1.8.1
+soundfile==0.10.3.post1
