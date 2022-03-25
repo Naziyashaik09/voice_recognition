@@ -58,7 +58,7 @@ def voiceRecognition(audio1,audio2,recording1,recording2):
 
 
 title = "Voice Recognition"
-description = "This voice recognition demo(Chinese Format) is a simple implementation based on ResNet. It used ArcFace Loss and an open source Chinese voice corpus - zhvoice."
+description = "This voice recognition demo"
 
 inputs = [gr.inputs.Audio(source='upload',type="filepath",optional=True,label="Speaker1"),
           gr.inputs.Audio(source="upload",type="filepath",optional=True,label="Speaker2"),
@@ -67,31 +67,24 @@ inputs = [gr.inputs.Audio(source='upload',type="filepath",optional=True,label="S
 ]
 output = [gr.outputs.HTML(label="")
 ]
-article = (
-    "<p style='text-align: center'>"
-    "<a href='https://github.com/yeyupiaoling/VoiceprintRecognition-Pytorch' target='_blank'>💻 Code Repository</a> | "
-    "<a href='https://github.com/fighting41love/zhvoice' target='_blank'>🎙️ zhvoice Dataset</a> | "
-    "</p>"
-)
+
 
 examples = [
-    ["samples/李云龙1.wav", "samples/李云龙2.wav"],
-    ["samples/马保国1.wav", "samples/马保国2.wav"],
-    ["samples/周杰伦1.wav", "samples/周杰伦2.wav"],
-    ["samples/海绵宝宝1.wav", "samples/派大星.wav"],
-    ["samples/海绵宝宝1.wav", "samples/海绵宝宝2.wav"],
-    ["samples/周星驰.wav", "samples/吴孟达.wav"]]
+    ["samples/Li Yunlong 1.wav", "samples/Li Yunlong 2.wav"],
+    ["samples/Jay Chou 1.wav", "samples/Jay Chou 2.wav"],
+    ["samples/Ma Baoguo 1.wav", "samples/Li Yunlong 2.wav"],
+    ["samples/Jay Chou 1.wav", "samples/SpongeBob SquarePants 1.wav"],
+    ["samples/Pai Daxing.wav", "samples/Ma Baoguo 2.wav"],
+    ["samples/Wn Mengda.wav", "samples/Stephen Chow.wav"]]
 
 interface = gr.Interface(
     fn=voiceRecognition,
     inputs=inputs,
-    #[gr.inputs.Audio(source='upload',label='speaker1'),gr.inputs.Audio(source='upload',label='speaker2'),
-    #gr.inputs.Audio(source='microphone',label='speaker1'),gr.inputs.Audio(source='microphone',label='speaker2')],
+    
     outputs=output,
     title=title,
     description=description,
     examples=examples,
-
-    article=article,
+    theme='dark',
     enable_queue=True)
 interface.launch(debug=True,share=True)
