@@ -1,4 +1,6 @@
+from asyncio.windows_events import NULL
 from cProfile import label
+from curses.ascii import NUL
 import gradio as gr
 
 import argparse
@@ -41,7 +43,12 @@ OUTPUT_FAIL = (
 )
 
 THRESHOLD = 0.70
-def voiceRecognition(audio1,audio2):
+def voiceRecognition(audio1,audio2,recording1,recording2):
+    #if audio1 and audio2 is None:
+    #score=run(recording1,recording2)
+    print (type(recording1))
+    print(type(audio1))
+    #if recording1 and recording2 is None:
     score = run(audio1,audio2)
     if score >= THRESHOLD:
         output = OUTPUT_OK.format(score * 100)
@@ -53,8 +60,8 @@ def voiceRecognition(audio1,audio2):
 title = "Voice Recognition"
 description = "This voice recognition demo(Chinese Format) is a simple implementation based on ResNet. It used ArcFace Loss and an open source Chinese voice corpus - zhvoice."
 
-inputs = [gr.inputs.Audio(source='upload',type="filepath",label="Speaker1"),
-          gr.inputs.Audio(source="upload",type="filepath",label="Speaker2"),
+inputs = [gr.inputs.Audio(source='upload',type="filepath",optional=True,label="Speaker1"),
+          gr.inputs.Audio(source="upload",type="filepath",optional=True,label="Speaker2"),
           gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker #1"),
           gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker #2"),
 ]
