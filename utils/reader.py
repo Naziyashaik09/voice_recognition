@@ -7,6 +7,7 @@ from torch.utils import data
 def load_audio(audio_path, mode='train', win_length=400, sr=16000, hop_length=160, n_fft=512, spec_len=257):
     # 读取音频数据
     wav, sr_ret = librosa.load(audio_path, sr=sr)
+    print(audio_path)
     # 数据拼接
     if mode == 'train':
         extended_wav = np.append(wav, wav)

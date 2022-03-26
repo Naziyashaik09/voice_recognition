@@ -49,7 +49,14 @@ def voiceRecognition(audio1,audio2,recording1,recording2):
     print (type(recording1))
     print(type(audio1))
     #if recording1 and recording2 is None:
-    score = run(audio1,audio2)
+    score=0
+ #if recording1 and recording2 is None:
+    if recording1 and recording2 != None:
+     print("reocrding is not none")
+     score = run(recording1,recording2)
+     if audio1 and audio2 != None:
+      print("audio is not none")
+     score = run(audio1,audio2)
     if score >= THRESHOLD:
         output = OUTPUT_OK.format(score * 100)
     else:
@@ -57,13 +64,16 @@ def voiceRecognition(audio1,audio2,recording1,recording2):
     return output
 
 
+
+
 title = "Voice Recognition"
-description = "This voice recognition demo"
+description = "Choose one of the option ie., either upload(speaker1 and speaker2) OR record(speaker@1 and speaker@2),Don't choose multiple options"
+            
 
 inputs = [gr.inputs.Audio(source='upload',type="filepath",optional=True,label="Speaker1"),
           gr.inputs.Audio(source="upload",type="filepath",optional=True,label="Speaker2"),
-          gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker #1"),
-          gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker #2"),
+          gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker@1"),
+          gr.inputs.Audio(source="microphone", type="filepath", optional=True, label="Speaker@2"),
 ]
 output = [gr.outputs.HTML(label="")
 ]
