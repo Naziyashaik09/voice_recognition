@@ -3,25 +3,25 @@ import numpy as np
 from torch.utils import data
 
 
-# 加载并预处理音频
+
 def load_audio(audio_path, mode='train', win_length=400, sr=16000, hop_length=160, n_fft=512, spec_len=257):
-    # 读取音频数据
+   
     wav, sr_ret = librosa.load(audio_path, sr=sr)
     print(audio_path)
-    # 数据拼接
+   
     if mode == 'train':
         extended_wav = np.append(wav, wav)
         if np.random.random() < 0.3:
             extended_wav = extended_wav[::-1]
     else:
         extended_wav = np.append(wav, wav[::-1])
-    # 计算短时傅里叶变换
+    
     linear = librosa.stft(extended_wav, n_fft=n_fft, win_length=win_length, hop_length=hop_length)
     mag, _ = librosa.magphase(linear)
     freq, freq_time = mag.shape
     assert freq_time >= spec_len, "The length of the non-silent part cannot be less than 1.3s"
     if mode == 'train':
-        # 随机裁剪
+        
         rand_time = np.random.randint(0, freq_time - spec_len)
         spec_mag = mag[:, rand_time:rand_time + spec_len]
     else:
@@ -33,7 +33,7 @@ def load_audio(audio_path, mode='train', win_length=400, sr=16000, hop_length=16
     return spec_mag
 
 
-# 数据加载器
+
 class CustomDataset(data.Dataset):
     def __init__(self, data_list_path, model='train', spec_len=257):
         super(CustomDataset, self).__init__()
